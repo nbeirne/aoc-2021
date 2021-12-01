@@ -1,15 +1,11 @@
-solve1 :: [Int] -> Int
-solve1 (x:y:xs) = (if x < y then 1 else 0)+ solve1 (y:xs)
-solve1 _ = 0
 
-solve2 :: [Int] -> Int
-solve2 (a:b:c:d:xs) = (if (a+b+c) < (b+c+d) then 1 else 0)+ solve2 (b:c:d:xs)
-solve2 _ = 0
+parse = id
 
-parse = map read . lines
+solve1 = id
+solve2 = id
 
-test1a = 0
-test2a = 0
+test1a = ""
+test2a = ""
 
 -- boiler plate
 
