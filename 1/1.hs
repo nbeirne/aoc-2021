@@ -1,3 +1,5 @@
+import Data.List
+
 solve1 :: [Int] -> Int
 solve1 (x:y:xs) = (if x < y then 1 else 0)+ solve1 (y:xs)
 solve1 _ = 0
@@ -10,6 +12,8 @@ parse = map read . lines
 
 test1a = 0
 test2a = 0
+
+
 
 -- boiler plate
 
