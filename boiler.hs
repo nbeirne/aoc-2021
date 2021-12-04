@@ -10,6 +10,7 @@ test2a = ""
 -- boiler plate
 
 test name expected result = do
+  putStrLn $ "test "++ name ++ " got "++show result
   if result == expected then 
                         putStrLn $ "test "++ name ++ " success. got "++show result
                         else
@@ -17,7 +18,7 @@ test name expected result = do
 
 
 testAll = do
-  input <- readFile "input"
+  input <- readFile "test"
   test "1" test1a (solve1 $ parse input)
   test "2" test2a (solve2 $ parse input)
   return ()
