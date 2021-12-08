@@ -4,12 +4,16 @@ parse = id
 solve1 = id
 solve2 = id
 
-test1a = ""
-test2a = ""
+-- score a solution based on the id
+score = const 0
+
+test1a = 0
+test2a = 0
 
 -- boiler plate
 
 test name expected result = do
+  putStrLn $ "test "++ name ++ " got "++show result
   if result == expected then 
                         putStrLn $ "test "++ name ++ " success. got "++show result
                         else
@@ -17,15 +21,19 @@ test name expected result = do
 
 
 testAll = do
-  input <- readFile "input"
-  test "1" test1a (solve1 $ parse input)
-  test "2" test2a (solve2 $ parse input)
+  input <- readFile "test"
+  test "1" test1a (score $ solve1 $ parse input)
+  test "2" test2a (score $ solve2 $ parse input)
+
+  putStrLn $ "solve1: " ++ show (solve1 $ parse input)
+  putStrLn $ "solve2: " ++ show (solve2 $ parse input)
+
   return ()
 
 solveAll = do
   input <- readFile "input"
-  let a1 = solve1 $ parse input
-  let a2 = solve2 $ parse input
+  let a1 = score $ solve1 $ parse input
+  let a2 = score $ solve2 $ parse input
   putStrLn $ "solve1: " ++ show a1
   putStrLn $ "solve2: " ++ show a2
 
