@@ -15,6 +15,11 @@ iter x (y:ys) f = f x':iter x' ys f
   where x' = x++[y]
 
 
+-- change idx in array with f. unsafe and innefficient.
+change :: Int -> (a -> a) -> [a] -> [a]
+change i f xs = take i xs ++ [f (xs !! i)] ++ drop (i+1) xs
+
+
 -- cardinal points and lines
 
 type Point = (Int,Int)
