@@ -60,6 +60,7 @@ reduceInputs inputs = Map.fromList [(n0,0),
         n8 = (filter ((==7) . length ) inputs) !! 0
         a = Set.difference n7 n1
         eg = invertedSet (Set.union n4 n7) -- segments e and g
+
         n2 = (filter (\l -> (length l == 5) && eg `Set.isProperSubsetOf` l) inputs) !! 0
         n9 = (filter (\l -> (length l == 6) && not (eg `Set.isProperSubsetOf` l)) inputs) !! 0
         n0 = Set.unions [n7, invertedSet n2, invertedSet n4]
