@@ -1,3 +1,5 @@
+import qualified Data.Set as Set
+import Data.Set (Set)
 
 splitBy :: (a -> Bool) -> [a] -> [[a]]
 splitBy f s = case dropWhile f s of 
