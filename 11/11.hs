@@ -15,28 +15,23 @@ parse = Map.fromList . map (\(i,v) -> ((i `div` 10, i `mod` 10),v)) . zip [0..] 
 
 
 -- helpers
-adj :: Point -> Set Point
 adj (x,y) = Set.fromList $ [(x',y') | x' <- [x-1..x+1], y' <- [y-1..y+1], x /= x' || y /= y']
-
-val :: Board -> Point -> Int
 val b p = b Map.! p
 
 
--- board ops
 
 
-inc :: Board -> Board
-inc = Map.map (+1)
-
-resetBoard :: Board -> Board
+-- reset board
 resetBoard = Map.map (\v -> if v > 9 then 0 else v)
 
-flashPt :: Point -> Board -> Board
+-- flash entire board
+inc = Map.map (+1)
+
+-- flash p and increment adjasent points
 flashPt pt board = Set.foldr (Map.adjust (+1)) board (adj pt)
 
-flashes :: Board -> Set Point
+-- find flashes in board after increment
 flashes = Set.fromList . Map.keys . Map.filter (>9) 
-
 
 -- run flashes for a step
 flashesIter :: Board -> Set Point -> (Board,Set Point)
@@ -49,23 +44,19 @@ flashesIter board flashed
 
   
 -- inc, run flashes, reset. 
-step :: (Int, Board, Int, Int) -> (Int, Board, Int, Int)
-step (n,b,_,totalCount) = (n+1, resetBoard b', flashSize, totalCount + flashSize)
+step :: (Board,Int) -> (Board, Int)
+step (b,_) = (resetBoard b', flashSize)
   where (b',flashed) = flashesIter (inc b) Set.empty
         flashSize = Set.size flashed
 
 -- solve 1
-solve1 b = iterate step (0,b,0,0)
+solve1 b = iterate step (b,0)
 solve2 = solve1
 
 
 -- scores
-score1 s = totalCount
-  where (_,_,_,totalCount) = (s !! 100)
-
-score2 s = n
-  where (n,_,_,_) = head $ filter (\(_,_,c,_) -> c==100) s
-
+score1 = sum . take 101 . map snd
+score2 = fst . head . filter (\(_,(_,c)) -> c==100) . zip [0..] -- take first where all flash
 
 -- test 
 

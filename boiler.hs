@@ -25,7 +25,6 @@ test2a = 0
 -- boiler plate for running
 
 test name expected result = do
-  putStrLn $ "test "++ name ++ " got "++show result
   if result == expected then 
                         putStrLn $ "test "++ name ++ " success. got "++show result
                         else
