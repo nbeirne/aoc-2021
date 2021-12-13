@@ -1,3 +1,8 @@
+import Data.Char
+import qualified Data.Map as Map
+import Data.Map (Map)
+import qualified Data.Set as Set
+import Data.Set (Set)
 
 splitBy :: (a -> Bool) -> [a] -> [[a]]
 splitBy f s = case dropWhile f s of 
