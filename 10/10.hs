@@ -25,7 +25,7 @@ score2 = midpoint . sort . map (foldl (\a b -> a*5 + score b) 0)
         midpoint arr = arr !! (length arr `div` 2)
 
 main = do
-  f <- readFile "input"
+  f <- readFile "test"
   let l = lines f
   let s1 = score1 $ lefts $ map (parse []) l
   let s2 = score2 $ rights $ map (parse []) l
