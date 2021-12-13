@@ -33,10 +33,10 @@ parseIns l = parse (i !! 2)
 
 --fold :: Paper -> Ins -> Paper
 fold p (Horiz sx) = Set.union (Set.map flip fp) sp
-  where (fp,sp) = Set.partition (\(x,_) -> x > sx) p 
+  where (fp,sp) = Set.partition ((>sx) . fst) p 
         flip (x,y) = ((2*sx)-x,y)
 fold p (Vert sy) = Set.union (Set.map flip fp) sp
-  where (fp,sp) = Set.partition (\(_,y) -> y > sy) p 
+  where (fp,sp) = Set.partition ((>sy) . snd) p 
         flip (x,y) = (x,(2*sy)-y)
 
 -- solve 1
@@ -49,7 +49,7 @@ toStr :: Set Point -> String
 toStr s = unlines [makeLine y | y <- [0..maxY]]
   where maxX = maximum $ Set.toList $ Set.map fst s
         maxY = maximum $ Set.toList $ Set.map snd s
-        makeLine y = [c | x <- [0..maxX], let c = if Set.member (x,y) s then '#' else '.']
+        makeLine y = [c | x <- [0..maxX], let c = if Set.member (x,y) s then '#' else ' ']
 
 solve2 (p,ins) = toStr $ foldl fold p ins
 

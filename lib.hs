@@ -59,3 +59,9 @@ adj (x,y) = Set.fromList $ [(x',y') | x' <- [x-1..x+1], y' <- [y-1..y+1], x /= x
 
 val :: Board -> Point -> Int
 val b (x,y) = (b !! x) !! y
+
+toStr :: Set Point -> String
+toStr s = unlines [makeLine y | y <- [0..maxY]]
+  where maxX = maximum $ Set.toList $ Set.map fst s
+        maxY = maximum $ Set.toList $ Set.map snd s
+        makeLine y = [c | x <- [0..maxX], let c = if Set.member (x,y) s then '#' else ' ']
