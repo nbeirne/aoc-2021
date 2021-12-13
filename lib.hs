@@ -65,3 +65,8 @@ toStr s = unlines [makeLine y | y <- [0..maxY]]
   where maxX = maximum $ Set.toList $ Set.map fst s
         maxY = maximum $ Set.toList $ Set.map snd s
         makeLine y = [c | x <- [0..maxX], let c = if Set.member (x,y) s then '#' else ' ']
+
+type BoardM = Map Point
+
+valM :: BoardM a -> Point -> a
+valM b p = b Map.! p
