@@ -31,4 +31,3 @@ main = do
   let s2 = score2 $ rights $ map (parse []) l
   putStrLn (show s1 ++ " " ++ show s2)
 
-  

@@ -1,3 +1,8 @@
+import Data.Char
+import qualified Data.Map as Map
+import Data.Map (Map)
+import qualified Data.Set as Set
+import Data.Set (Set)
 
 splitBy :: (a -> Bool) -> [a] -> [[a]]
 splitBy f s = case dropWhile f s of 
@@ -22,6 +27,7 @@ change i f xs = take i xs ++ [f (xs !! i)] ++ drop (i+1) xs
 
 -- cardinal points and lines
 
+type Board = [[Int]]
 type Point = (Int,Int)
 type Line = (Point,Point)
 
@@ -45,4 +51,11 @@ pointsInLine ((x,y),(x',y')) = zip xp yp
         xp = if drop 1 xs == [] then xs else xs
         yp = if drop 1 ys == [] then ys else ys
 
+parse :: String -> Board
+parse = map (map (read . (:[]))) . lines
 
+adj :: Point -> Set Point
+adj (x,y) = Set.fromList $ [(x',y') | x' <- [x-1..x+1], y' <- [y-1..y+1], x /= x' || y /= y']
+
+val :: Board -> Point -> Int
+val b (x,y) = (b !! x) !! y
