@@ -25,6 +25,10 @@ change :: Int -> (a -> a) -> [a] -> [a]
 change i f xs = take i xs ++ [f (xs !! i)] ++ drop (i+1) xs
 
 
+-- count elements into a map of element->count
+counts :: Ord a => [a] -> Map a Int
+counts arr = foldr (\x m -> Map.insertWith (+) x 1 m) Map.empty arr
+
 -- cardinal points and lines
 
 type Board = [[Int]]
